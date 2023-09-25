@@ -1,0 +1,41 @@
+# Your first challenge is to print "hello world" on the terminal in a single command.
+(0)> echo 'hello world'
+
+# Print the current working directory.
+(0)> pwd
+
+# List names of all the files in the current directory, one file per line.
+(0)> ls -l | awk '{print $9}' 
+
+# There is a file named access.log in the current directory. Print the contents.
+(0)> cat access.log 
+
+# Print the last 5 lines of "access.log".
+(0)> tail -n 5 access.log
+
+# Create an empty file named take-the-command-challenge in the current working directory.
+(0)> : > take-the-command-challenge
+
+# Create a directory named tmp/files in the current working directory
+(0)> mkdir -p tmp/files 
+
+# Copy the file named take-the-command-challenge to the directory tmp/files
+(0)> cp take-the-command-challenge tmp/files
+
+# Move the file named take-the-command-challenge to the directory tmp/files
+(0)> mv take-the-command-challenge tmp/files
+
+# A symbolic link is a type of file that is a reference to another file.
+(0)> ln -s tmp/files/take-the-command-challenge take-the-command-challenge
+
+# Delete all of the files in this challenge directory including all subdirectories and their contents.
+(0)> rm -rf {,.[!.],..?}* 
+
+# There are files in this challenge with different file extensions. Remove all files with the .doc extension recursively in the current working directory.
+(0)> find . -name "*.doc" -type f -delete
+
+# There is a file named access.log in the current working directory. Print all lines in this file that contains the string "GET".
+(0)> awk '/GET/ {print}' access.log 
+
+# Print all files in the current directory, one per line (not the path, just the filename) that contain the string "500".
+(0)> grep -l 500 *
