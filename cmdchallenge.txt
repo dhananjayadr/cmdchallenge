@@ -39,3 +39,100 @@
 
 # Print all files in the current directory, one per line (not the path, just the filename) that contain the string "500".
 (0)> grep -l 500 *
+
+# Print the relative file paths, one path per line for all filenames that start with "access.log" in the current directory.
+(0)> ls access* 
+
+# Print all matching lines (without the filename or the file path) in all files under the current directory that start with "access.log" that contain the string "500".
+(0)> find . -type f -name access.log* | xargs grep -h 500 
+
+# Extract all IP addresses from files that start with "access.log" printing one IP address per line.
+(0)> grep -Pho '^\d+\.\d+\.\d+\.\d+' **/access.log*
+
+# Count the number of files in the current working directory. Print the number of files as a single integer.
+(0)> ls -l | wc -l
+
+# Print the contents of access.log sorted.
+(0)> cat access.log | sort 
+
+# Print the number of lines in access.log that contain the string "GET".
+(0)> grep "GET" access.log | wc -l
+
+# The file split-me.txt contains a list of numbers separated by a ; character. Split the numbers on the ; character, one number per line.
+(0)> cat split-me.txt | tr ";" "\n" 
+
+# Print the numbers 1 to 100 separated by spaces.
+(0)> for i in {1..100}; do echo -n "$i "; done; 
+
+# This challenge has text files (with a .txt extension) that contain the phrase "challenges are difficult". Delete this phrase from all text files recursively.
+(0)> sed -i "challenges are difficult" **/*.txt 
+
+# The file sum-me.txt has a list of numbers, one per line. Print the sum of these numbers.
+(0)> awk '{ sum += $1 } END { print sum }' sum-me.txt 
+
+# Print all files in the current directory recursively without the leading directory path.
+(0)> find . -type f | rev | cut -d "/" -f 1 | rev
+
+# Rename all files removing the extension from them in the current directory recursively.
+(0)> for f in $(find . -type f); do mv $f ${f%.*}; done 
+
+# The files in this challenge contain spaces. List all of the files (filenames only) in the current directory but replace all spaces with a '.' character.
+(0)> for i in *; do echo ${i// /.}; done 
+
+# In this challenge there are some directories containing files with different extensions. Print all directories, one per line without duplicates that contain one or more files with a ".tf" extension.
+(0)> for f in $(find . -name "*.tf"); do echo ${f%/*}; done | sort -u 
+
+# There are a mix of files in this directory that start with letters and numbers. Print the filenames (just the filenames) of all files that start with a number recursively in the current directory.
+(0)> find . -type f -name '[0-9]*' -printf '%f\n' 
+
+# Print the 25th line of the file faces.txt
+(0)> head -n 25 faces.txt|tail -n 1 
+
+# Print the lines of the file reverse-me.txt in this directory in reverse line order so that the last line is printed first and the first line is printed last.
+
+~~~~~~~~~~~~~~~~~~~~~
+In the future
+Environmental destruction will be the norm
+No longer can it be said that
+My peers and I care about this earth
+It will be evident that
+My generation is apathetic and lethargic
+It is foolish to presume that
+There is hope
+~~~~~~~~~~~~~~~~~~~~~
+-Jonathan Reed "The Lost Generation"
+
+(0)> tac < reverse-me.txt
+
+# Print the file faces.txt, but only print the first instance of each duplicate line, even if the duplicates don't appear next to each other.
+(0)> cat faces.txt |awk '!seen[$0]++' 
+
+# The file random-numbers.txt contains a list of 100 random integers. Print the number of unique prime numbers contained in the file.
+(0)> awk '!a[$0]++' random-numbers.txt | factor | awk 'NF==2' | wc -l 
+
+# access.log.1 and access.log.2 are http server logs.Print the IP addresses common to both files, one per line.
+(0)> cat access.log.* | awk '{print $1}' | sort | uniq -d
+
+# Print all matching lines (without the filename or the file path) in all files under the current directory that start with "access.log", where the next line contains the string "404".
+(0)> find -type f -name "access.log*" | xargs awk '{ if ($0 ~ "404") print last; last=$0 }'
+
+# Print all files with a .bin extension in the current directory that are different than the file named base.bin.
+(0)> find * -type f -name "*.bin" | while read file; do cmp -s "$file" "base.bin" || echo "$file"; done 
+
+# There is a file: ./.../ /. .the flag.txt Show its contents on the screen.
+(0)> cat './.../  /. .the flag.txt'
+
+# How many lines contain tab characters in the file named file-with-tabs.txt in the current directory.
+(0)> cat file-with-tabs.txt | grep -P '\t' | wc -l 
+
+# There are files in this challenge with different file extensions.Remove all files without the .txt and .exe extensions recursively in the current working directory.
+(0)> rm -rf $(find -type f ! -name "*.txt" ! -name "*.exe")
+
+# There are some files in this directory that start with a dash in the filename. Remove those files.
+(0)> find . -type f -name "-*" -delete
+
+# There are two files in this directory, ps-ef1 and ps-ef2. Print the contents of both files sorted by PID and delete repeated lines.
+(0)> cat ps-* | sort -k2 -n | uniq 
+
+# In the current directory there is a file called netstat.out. Print all the IPv4 listening ports sorted from the higher to lower.
+(0)> cat netstat.out | grep -w "LISTEN" | awk '{print $4}' | cut -d":" -f2 | sort -rn 
