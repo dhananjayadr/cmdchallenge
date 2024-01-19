@@ -5,13 +5,14 @@
 (0)> pwd
 
 # List names of all the files in the current directory, one file per line.
-(0)> ls -l | awk '{print $9}' 
+(0)> ls -l | awk '{print $9}'
 
 # There is a file named access.log in the current directory. Print the contents.
 (0)> cat access.log 
 
 # Print the last 5 lines of "access.log".
 (0)> tail -n 5 access.log
+(0)> awk -v total="$(wc -l < access.log)" 'NR >= (total - 4) {print}' access.log
 
 # Create an empty file named take-the-command-challenge in the current working directory.
 (0)> : > take-the-command-challenge
