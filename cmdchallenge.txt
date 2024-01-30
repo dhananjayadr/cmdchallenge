@@ -34,6 +34,7 @@
 
 # There are files in this challenge with different file extensions. Remove all files with the .doc extension recursively in the current working directory.
 (0)> find . -name "*.doc" -type f -delete
+(0)> find -name "*.doc" | xargs rm
 
 # There is a file named access.log in the current working directory. Print all lines in this file that contains the string "GET".
 (0)> awk '/GET/ {print}' access.log 
